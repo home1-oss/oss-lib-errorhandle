@@ -142,7 +142,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>oss-lib-test-spring-boot-1.4.1.RELEASE</artifactId>
-            <version>1.0.7.OSS</version>
+            <version>1.0.9.OSS</version>
             <scope>test</scope>
         </dependency>
         <!--
