@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.home1</groupId>
         <artifactId>oss-build</artifactId>
-        <version>1.0.12.OSS</version>
+        <version>1.0.15.OSS</version>
     </parent>
 
     <artifactId>oss-lib-errorhandle</artifactId>
@@ -15,7 +15,7 @@
     <name>oss-lib-errorhandle</name>
     <packaging>pom</packaging>
     <url>https://github.com/home1-oss/oss-lib-errorhandle</url>
-    <version>1.0.9.OSS-SNAPSHOT</version>
+    <version>1.0.10.OSS-SNAPSHOT</version>
 
     <ciManagement>
         <system>Travis CI</system>
@@ -34,9 +34,11 @@
     <modules>
         <module>oss-lib-errorhandle-spring-boot-1.4.1.RELEASE</module>
         <module>oss-lib-errorhandle-spring-boot-1.4.2.RELEASE</module>
+        <module>oss-lib-errorhandle-spring-boot-1.5.4.RELEASE</module>
+        <module>oss-lib-errorhandle-spring-boot-1.5.6.RELEASE</module>
     </modules>
 
     <properties>
-        <oss-common-dependencies.version>1.0.11.OSS</oss-common-dependencies.version>
+        <oss-common-dependencies.version>1.0.12.OSS</oss-common-dependencies.version>
     </properties>
 </project>

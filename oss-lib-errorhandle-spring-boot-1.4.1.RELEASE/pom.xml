@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.home1</groupId>
         <artifactId>oss-lib-errorhandle</artifactId>
-        <version>1.0.9.OSS-SNAPSHOT</version>
+        <version>1.0.10.OSS-SNAPSHOT</version>
     </parent>
 
     <artifactId>oss-lib-errorhandle-spring-boot-1.4.1.RELEASE</artifactId>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>oss-lib-webmvc-spring-boot-1.4.1.RELEASE</artifactId>
-            <version>1.0.8.OSS</version>
+            <version>1.0.10.OSS-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -142,7 +142,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>oss-lib-test-spring-boot-1.4.1.RELEASE</artifactId>
-            <version>1.0.9.OSS</version>
+            <version>1.0.10.OSS-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <!--
