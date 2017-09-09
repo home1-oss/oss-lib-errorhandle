@@ -3,14 +3,12 @@ package cn.home1.oss.lib.errorhandle.api;
 
 import static org.junit.Assert.assertEquals;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.jayway.restassured.path.xml.XmlPath;
-import cn.home1.oss.lib.common.Jackson2Utils;
-import cn.home1.oss.lib.common.JaxbUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -25,6 +23,9 @@ import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import cn.home1.oss.lib.common.Jackson2Utils;
+import cn.home1.oss.lib.common.JaxbUtils;
 
 
 @Slf4j
@@ -68,21 +69,21 @@ public class ResolvedErrorXmlTest {
   public void testDeserializeXmlMapper() throws JAXBException, IOException {
     final ResolvedError actual = this.xmlMapper.readValue(getStandardError(), ResolvedError.class);
 
-    Assert.assertEquals(ResolvedErrorTestScenario.resolvedErrorScenario(), actual);
+    assertEquals(ResolvedErrorTestScenario.resolvedErrorScenario(), actual);
   }
 
   @Test
   public void testDeserializeJaxb2() throws IOException {
     final Object actual = this.jaxb2Marshaller.unmarshal(new StreamSource(getStandardError()));
 
-    Assert.assertEquals(ResolvedErrorTestScenario.resolvedErrorScenario(), actual);
+    assertEquals(ResolvedErrorTestScenario.resolvedErrorScenario(), actual);
   }
 
   @Test
   public void testDeserializeJAXB() throws IOException {
     final ResolvedError actual = JAXB.unmarshal(getStandardError(), ResolvedError.class);
 
-    Assert.assertEquals(ResolvedErrorTestScenario.resolvedErrorScenario(), actual);
+    assertEquals(ResolvedErrorTestScenario.resolvedErrorScenario(), actual);
   }
 
   private void assertSerialize(final String actual) throws FileNotFoundException {

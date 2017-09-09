@@ -59,16 +59,18 @@ public interface ConcreteExceptionResolver<T extends Throwable> extends Exceptio
   default <E extends Throwable> String message( //
     final RequestAttributes requestAttributes, //
     final E throwable, //
-    final Optional<List<ValidationError>> errorsOptional //
+    final Optional<List<ValidationError>> validationErrorsOptional //
   ) {
     final Object fromAttribute = getAttribute(requestAttributes, "javax.servlet.error.message");
     final String fromError;
     if (throwable != null) {
-      if (!errorsOptional.isPresent()) {
+      if (!validationErrorsOptional.isPresent()) {
         fromError = throwable.getMessage();
       } else {
-        final int errorCount = errorsOptional.get().size();
-        fromError = errorCount > 0 ? "Validation failed. Error count: " + errorCount : "No errors";
+        final int errorCount = validationErrorsOptional.get().size();
+        fromError = errorCount > 0 ? //
+          "Validation failed. Validation errors count: " + errorCount : //
+          "No validation errors";
       }
     } else {
       fromError = null;

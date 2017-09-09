@@ -9,9 +9,15 @@ public final class ResolvedErrorTestScenario {
   }
 
   public static ResolvedError resolvedErrorScenario() {
+    final ValidationError validationError = ValidationError.validationErrorBuilder()
+      .field("field")
+      .rejected("rejected")
+      .message("message")
+      .build();
+
     return ResolvedError.resolvedErrorBuilder()
       .error("error")
-      .errors(new ValidationError[]{})
+      .validationErrors(new ValidationError[]{validationError})
       .exception("exception")
       .message("message")
       .path("path")

@@ -184,12 +184,12 @@ public abstract class AbstractConcreteExceptionResolver<T extends Throwable> imp
     } else {
       final Location location = find(throwable).orElse(null);
       // basic
-      final Optional<List<ValidationError>> errorsOptional = this.validationErrors(throwable);
+      final Optional<List<ValidationError>> validationErrorsOptional = this.validationErrors(throwable);
       final Optional<Integer> statusOptional = this.status(requestAttributes, location, throwable);
       final String error = error(statusOptional);
-      final List<ValidationError> errors = errorsOptional.orElse(null);
+      final List<ValidationError> validationErrors = validationErrorsOptional.orElse(null);
       final String exception = throwable != null ? throwable.getClass().getName() : null;
-      final String message = message(requestAttributes, throwable, errorsOptional);
+      final String message = message(requestAttributes, throwable, validationErrorsOptional);
       final Integer status = statusOptional.orElse(500);
       final Long timestamp = now.getMillis();
       final String trace = stackTrace && throwable != null ? getStackTraceAsString(throwable) : null;
@@ -202,7 +202,9 @@ public abstract class AbstractConcreteExceptionResolver<T extends Throwable> imp
       resolvedError = ResolvedError.resolvedErrorBuilder() //
         // basic
         .error(error) //
-        .errors(errors != null ? errors.toArray(new ValidationError[errors.size()]) : null) //
+        .validationErrors( //
+          validationErrors != null ? validationErrors.toArray(new ValidationError[validationErrors.size()]) : null //
+        ) //
         .exception(exception) //
         .message(message) //
         .path(path) //
@@ -223,8 +225,8 @@ public abstract class AbstractConcreteExceptionResolver<T extends Throwable> imp
   }
 
   /**
-   * Logs the exception; on ERROR level when status is 5xx, otherwise on INFO level without stack
-   * trace, or DEBUG level with stack trace. The logger name is {@code ExceptionResolver}.
+   * Logs the exception; on ERROR level when status is 5xx, otherwise on INFO level without stack trace, or DEBUG level
+   * with stack trace. The logger name is {@code ExceptionResolver}.
    *
    * @param requestAttributes requestAttributes
    * @param throwable         throwable

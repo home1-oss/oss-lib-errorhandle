@@ -4,7 +4,13 @@
     <error>error</error>
     <exception>exception</exception>
     <message>message</message>
-    <errors/>
+    <validationErrors>
+        <validationError>
+            <field>field</field>
+            <rejected>rejected</rejected>
+            <message>message</message>
+        </validationError>
+    </validationErrors>
     <trace>trace</trace>
     <path>path</path>
     <datetime>datetime</datetime>

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * 经过解析的错误信息.
+ * Resolved error.
  *
  * <p>
  * Created by zhanghaolun on 16/7/1.
@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement(name = "error") // Jaxb2RootElementHttpMessageConverter
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {"error", "exception", "errors", "message", "path", "status", "timestamp", "trace", //
+@XmlType(propOrder = { //
+  "error", "exception", "message", "path", "status", "timestamp", "trace", "validationErrors", //
   "datetime", "headers", "localizedMessage", "tracks"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY) // for Jackson 2.x
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY) // for Jackson 1.x
@@ -61,14 +62,6 @@ public class ResolvedError implements Serializable {
   // ------------------------------ basic ------------------------------
   @JsonProperty("error")
   private String error;
-  /**
-   * 解析得到的 数据验证错误信息.
-   * Nested XmlElements see: https://github.com/FasterXML/jackson-module-jaxb-annotations/issues/42
-   */
-  @JsonProperty("errors")
-  @XmlElementWrapper(name = "errors")
-  @XmlElements(@XmlElement(name = "error"))
-  private ValidationError[] errors;
   @XmlElement
   private String exception;
   private String message;
@@ -76,6 +69,14 @@ public class ResolvedError implements Serializable {
   private Integer status;
   private Long timestamp;
   private String trace;
+  /**
+   * Nested XmlElements see: https://github.com/FasterXML/jackson-module-jaxb-annotations/issues/42
+   */
+  @JsonProperty("validationErrors")
+  @XmlElementWrapper(name = "validationErrors")
+  @XmlElement(name = "validationError")
+  //@XmlElements(@XmlElement(name = "validationError"))
+  private ValidationError[] validationErrors;
   // ------------------------------ extended ------------------------------
   /**
    * ISO8601 string.
@@ -110,22 +111,22 @@ public class ResolvedError implements Serializable {
     return headers;
   }
 
-  public static ResolvedError fromErrorAttributes(final Map<String, Object> map) {
-    return map == null ? null : ResolvedError.resolvedErrorBuilder()
+  public static ResolvedError fromErrorAttributes(final Map<String, Object> errorAttributes) {
+    return errorAttributes == null ? null : ResolvedError.resolvedErrorBuilder()
       // basic
-      .error((String) map.get("error")) //
-      .errors((ValidationError[]) map.get("errors")) //
-      .exception((String) map.get("exception"))
-      .message((String) map.get("message")) //
-      .path((String) map.get("path")) //
-      .status((Integer) map.get("status")) //
-      .timestamp((Long) map.get("timestamp")) //
-      .trace((String) map.get("trace")) //
+      .error((String) errorAttributes.get("error")) //
+      .exception((String) errorAttributes.get("exception"))
+      .message((String) errorAttributes.get("message")) //
+      .path((String) errorAttributes.get("path")) //
+      .status((Integer) errorAttributes.get("status")) //
+      .timestamp((Long) errorAttributes.get("timestamp")) //
+      .trace((String) errorAttributes.get("trace")) //
+      .validationErrors((ValidationError[]) errorAttributes.get("validationErrors")) //
       // extended
-      .datetime((String) map.get("datetime"))
-      .headers((HttpHeader[]) map.get("headers")) //
-      .localizedMessage((String) map.get("localizedMessage")) //
-      .tracks((String[]) map.get("tracks")).build();
+      .datetime((String) errorAttributes.get("datetime"))
+      .headers((HttpHeader[]) errorAttributes.get("headers")) //
+      .localizedMessage((String) errorAttributes.get("localizedMessage")) //
+      .tracks((String[]) errorAttributes.get("tracks")).build();
   }
 
   @JsonIgnore
@@ -163,13 +164,13 @@ public class ResolvedError implements Serializable {
     final Map<String, Object> map = newLinkedHashMap();
     // basic
     map.put("error", this.error);
-    map.put("errors", this.errors);
     map.put("exception", this.exception);
     map.put("message", this.message);
     map.put("path", this.path);
     map.put("status", this.status);
     map.put("timestamp", this.timestamp);
     map.put("trace", this.trace);
+    map.put("validationErrors", this.validationErrors);
     // extended
     map.put("datetime", datetime);
     map.put("headers", this.headers);

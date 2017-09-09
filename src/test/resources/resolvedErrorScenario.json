@@ -2,6 +2,13 @@
   "timestamp": 201701031643,
   "status": 401,
   "error": "error",
+  "validationErrors": [
+    {
+      "field": "field",
+      "rejected": "rejected",
+      "message": "message"
+    }
+  ],
   "exception": "exception",
   "message": "message",
   "trace": "trace",

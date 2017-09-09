@@ -77,8 +77,8 @@ public class ResolvedErrorTest {
   public void testFromErrorAttributes() {
     final ResolvedError expected = ResolvedErrorTestScenario.resolvedErrorScenario();
     @SuppressWarnings("unchecked")
-    final Map<String, Object> errors = expected.toErrorAttributes();
-    final ResolvedError actual = ResolvedError.fromErrorAttributes(errors);
+    final Map<String, Object> errorAttributes = expected.toErrorAttributes();
+    final ResolvedError actual = ResolvedError.fromErrorAttributes(errorAttributes);
 
     assertEquals("object not equal", expected, actual);
   }
