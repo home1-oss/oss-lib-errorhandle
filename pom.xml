@@ -32,10 +32,10 @@
     </scm>
 
     <modules>
-        <module>oss-lib-errorhandle-spring-boot-1.4.1.RELEASE</module>
-        <module>oss-lib-errorhandle-spring-boot-1.4.2.RELEASE</module>
-        <module>oss-lib-errorhandle-spring-boot-1.5.4.RELEASE</module>
         <module>oss-lib-errorhandle-spring-boot-1.5.6.RELEASE</module>
+        <!--module>oss-lib-errorhandle-spring-boot-1.5.4.RELEASE</module-->
+        <module>oss-lib-errorhandle-spring-boot-1.4.2.RELEASE</module>
+        <!--module>oss-lib-errorhandle-spring-boot-1.4.1.RELEASE</module-->
     </modules>
 
     <properties>
